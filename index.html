@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>900 Degrees | بيتزا نابولي ومأكولات إيطالية - داون تاون مول</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Cairo & Tajawal for Arabic, Playfair Display for English accents -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="ddd.png">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#C83E2B',
+                            darkRed: '#9E2B1C',
+                            gold: '#E5A93C',
+                            dark: '#141210',
+                            charcoal: '#1E1B18',
+                            cream: '#FAF7F2',
+                            olive: '#4A5D23'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #141210;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #C83E2B;
+            border-radius: 4px;
+        }
+
+        /* Wood-fired Glow Animation */
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 25px rgba(200, 62, 43, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 45px rgba(229, 169, 60, 0.5);
+            }
+        }
+
+        .oven-glow {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+
+        /* Glassmorphism */
+        .glass-nav {
+            background: rgba(20, 18, 16, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+
+<body class="bg-brand-cream text-stone-800 font-sans antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- ==================== HEADER / NAVBAR ==================== -->
+    <header class="fixed top-0 w-full z-50 glass-nav border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div
+                        class="w-11 h-11 rounded-full bg-brand-red flex items-center justify-center text-white font-serif font-bold text-lg shadow-lg group-hover:scale-105 transition-transform oven-glow">
+                        900°
+                    </div>
+                    <div>
+                        <span class="block text-white font-serif font-bold text-xl tracking-wide leading-none">900
+                            DEGREES</span>
+                        <span class="block text-brand-gold text-xs font-semibold mt-1">DOWNTOWN KATAMEYA</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-200">
+                    <a href="#overview" class="hover:text-brand-gold transition-colors">نظرة عامة</a>
+                    <a href="#menu" class="hover:text-brand-gold transition-colors">المنيو</a>
+                    <a href="#gallery" class="hover:text-brand-gold transition-colors">الأجواء والأطباق</a>
+                    <a href="#reviews" class="hover:text-brand-gold transition-colors">آراء الزوار <span
+                            class="bg-brand-gold/20 text-brand-gold px-1.5 py-0.5 rounded text-xs">4.3 ★</span></a>
+                    <a href="#location" class="hover:text-brand-gold transition-colors">الموقع وساعات العمل</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-3">
+                    <!-- Reservation Button -->
+                    <button onclick="openReservationModal()"
+                        class="hidden sm:inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2.5 rounded-full text-sm font-bold transition-all">
+                        <i class="fa-regular fa-calendar-check text-brand-gold"></i>
+                        <span>احجز طاولة</span>
+                    </button>
+
+                    <!-- Order / Cart Button -->
+                    <button onclick="toggleCart()"
+                        class="relative inline-flex items-center gap-2 bg-brand-red hover:bg-brand-darkRed text-white px-4 py-2.5 rounded-full text-sm font-bold shadow-lg transition-all">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="hidden sm:inline">اطلب أونلاين</span>
+                        <span id="cart-badge"
+                            class="bg-brand-gold text-brand-dark text-xs font-black w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2 rounded-lg hover:bg-white/10">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-brand-charcoal border-t border-white/10 px-4 pt-3 pb-6 space-y-3">
+            <a href="#overview" onclick="toggleMobileMenu()"
+                class="block text-stone-200 hover:text-brand-gold py-2 font-semibold">نظرة عامة</a>
+            <a href="#menu" onclick="toggleMobileMenu()"
+                class="block text-stone-200 hover:text-brand-gold py-2 font-semibold">المنيو</a>
+            <a href="#gallery" onclick="toggleMobileMenu()"
+                class="block text-stone-200 hover:text-brand-gold py-2 font-semibold">الأجواء والأطباق</a>
+            <a href="#reviews" onclick="toggleMobileMenu()"
+                class="block text-stone-200 hover:text-brand-gold py-2 font-semibold">آراء الزوار (1,594)</a>
+            <a href="#location" onclick="toggleMobileMenu()"
+                class="block text-stone-200 hover:text-brand-gold py-2 font-semibold">الموقع والتواصل</a>
+            <button onclick="toggleMobileMenu(); openReservationModal();"
+                class="w-full mt-2 bg-brand-gold text-brand-dark font-bold py-3 rounded-xl flex items-center justify-center gap-2">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span>احجز طاولتك الآن</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative min-h-[92vh] flex items-center pt-20 overflow-hidden bg-brand-dark">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1920&q=80"
+                onerror="this.src='https://placehold.co/1920x1080/141210/E5A93C?text=900+Degrees+Wood-Fired+Pizza'"
+                alt="بيتزا نابولي مشوية على الحطب 900 Degrees"
+                class="w-full h-full object-cover object-center opacity-45 scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/70 to-black/60"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+            <div class="max-w-3xl">
+                <!-- Live Status & Rating Pill -->
+                <div
+                    class="inline-flex flex-wrap items-center gap-3 bg-white/10 backdrop-blur-md border border-white/15 px-4 py-2 rounded-full mb-6">
+                    <span class="flex items-center gap-1.5 text-emerald-400 text-xs sm:text-sm font-bold">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        مفتوح الآن • يغلق 12:00 ص
+                    </span>
+                    <span class="text-white/30">|</span>
+                    <span class="flex items-center gap-1 text-brand-gold text-xs sm:text-sm font-bold">
+                        <i class="fa-solid fa-star"></i>
+                        4.3 <span class="text-stone-300 font-normal">(1,594 تقييم)</span>
+                    </span>
+                    <span class="text-white/30">|</span>
+                    <span class="text-stone-200 text-xs sm:text-sm font-semibold">
+                        E£ 400–600 للفرد
+                    </span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-4">
+                    حرارة <span class="text-brand-red font-serif">900°</span> فهرنهايت..
+                    <span class="block text-brand-gold mt-2">أصالة البيتزا النابولية في قلب القطامية</span>
+                </h1>
+
+                <p class="text-stone-300 text-base sm:text-xl leading-relaxed mb-8 max-w-2xl">
+                    استمتع بتجربة إيطالية لا تُنسى في <strong class="text-white">داون تاون مول القطامية</strong>. عجينة
+                    مخمرة بعناية، مكونات طازجة، وأفران حطب تمنحك قرمشة مثالية في 90 ثانية فقط.
+                </p>
+
+                <!-- Primary CTAs -->
+                <div class="flex flex-wrap items-center gap-4 mb-10">
+                    <a href="#menu"
+                        class="bg-brand-red hover:bg-brand-darkRed text-white font-bold px-8 py-4 rounded-2xl text-base sm:text-lg shadow-xl shadow-brand-red/30 transition-all flex items-center gap-3">
+                        <i class="fa-solid fa-pizza-slice"></i>
+                        <span>استكشف المنيو واطلب</span>
+                    </a>
+                    <button onclick="openReservationModal()"
+                        class="bg-white hover:bg-stone-100 text-brand-dark font-bold px-8 py-4 rounded-2xl text-base sm:text-lg shadow-xl transition-all flex items-center gap-3">
+                        <i class="fa-regular fa-calendar-check text-brand-red"></i>
+                        <span>حجز طاولة (Dine-in)</span>
+                    </button>
+                    <a href="tel:01066666911"
+                        class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-6 py-4 rounded-2xl text-base transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-brand-gold"></i>
+                        <span dir="ltr">010 66666911</span>
+                    </a>
+                </div>
+
+                <!-- Service Badges (From Google Maps Data) -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-xl pt-6 border-t border-white/15">
+                    <div class="flex items-center gap-2.5 text-stone-200">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs sm:text-sm font-bold text-white">صالة طعام</p>
+                            <p class="text-[11px] text-stone-400">جلسات داخلية وخارجية</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 text-stone-200">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs sm:text-sm font-bold text-white">تيك أواي</p>
+                            <p class="text-[11px] text-stone-400">استلام سريع من الفرع</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 text-stone-200">
+                        <div
+                            class="w-9 h-9 rounded-xl bg-brand-red/20 text-brand-red flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-motorcycle"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs sm:text-sm font-bold text-white">توصيل آمن</p>
+                            <p class="text-[11px] text-stone-400">No-contact delivery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== QUICK ACTION BAR (MAPS FEATURES) ==================== -->
+    <section id="overview" class="relative z-20 -mt-8 max-w-6xl mx-auto px-4 sm:px-6">
+        <div
+            class="bg-white rounded-3xl shadow-xl border border-stone-200/80 p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="https://www.google.com/maps/search/?api=1&query=900+degrees+Downtown+Mall+New+Cairo"
+                target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 p-3 rounded-2xl hover:bg-stone-50 transition-colors group">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-stone-900 text-sm sm:text-base">الاتجاهات</h3>
+                    <p class="text-xs text-stone-500">داون تاون مول القطامية</p>
+                </div>
+            </a>
+
+            <button onclick="copyPlusCode()"
+                class="flex items-center gap-3 p-3 rounded-2xl hover:bg-stone-50 transition-colors text-right group">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-stone-900 text-sm sm:text-base">كود الخريطة</h3>
+                    <p class="text-xs text-stone-500 font-mono" dir="ltr">2C86+WV New Cairo 1</p>
+                </div>
+            </button>
+
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 p-3 rounded-2xl hover:bg-stone-50 transition-colors group">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-stone-900 text-sm sm:text-base">إنستغرام</h3>
+                    <p class="text-xs text-stone-500">تابع أحدث العروض</p>
+                </div>
+            </a>
+
+            <button onclick="shareRestaurant()"
+                class="flex items-center gap-3 p-3 rounded-2xl hover:bg-stone-50 transition-colors text-right group">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-stone-900 text-sm sm:text-base">مشاركة المطعم</h3>
+                    <p class="text-xs text-stone-500">أرسل الموقع لأصدقائك</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== MENU HIGHLIGHTS & FULL MENU ==================== -->
+    <section id="menu" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-brand-red font-bold tracking-wider text-sm uppercase">قائمة الطعام الإيطالية</span>
+            <h2 class="text-3xl sm:text-4xl font-black text-stone-900 mt-2">الأطباق الأكثر طلباً وقائمة 900 Degrees</h2>
+            <p class="text-stone-600 mt-3 text-sm sm:text-base">
+                جميع الأصناف محضرة طازجة يومياً، وتشمل ترشيحات زوارنا المفضلة مثل بيتزا السي فود، لازانيا اللحم، وباستا
+                البيستو.
+            </p>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10" id="menu-tabs">
+            <button onclick="filterMenu('all')"
+                class="menu-tab active bg-brand-red text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-all"
+                data-cat="all">
+                الكل
+            </button>
+            <button onclick="filterMenu('popular')"
+                class="menu-tab bg-white text-stone-700 hover:bg-stone-100 px-5 py-2.5 rounded-full text-sm font-bold border border-stone-200 transition-all"
+                data-cat="popular">
+                🔥 الأكثر شعبية
+            </button>
+            <button onclick="filterMenu('pizza')"
+                class="menu-tab bg-white text-stone-700 hover:bg-stone-100 px-5 py-2.5 rounded-full text-sm font-bold border border-stone-200 transition-all"
+                data-cat="pizza">
+                🍕 بيتزا نابولي (900°)
+            </button>
+            <button onclick="filterMenu('pasta')"
+                class="menu-tab bg-white text-stone-700 hover:bg-stone-100 px-5 py-2.5 rounded-full text-sm font-bold border border-stone-200 transition-all"
+                data-cat="pasta">
+                🍝 الباستا واللازانيا
+            </button>
+            <button onclick="filterMenu('appetizers')"
+                class="menu-tab bg-white text-stone-700 hover:bg-stone-100 px-5 py-2.5 rounded-full text-sm font-bold border border-stone-200 transition-all"
+                data-cat="appetizers">
+                🧀 مقبلات وأطباق جانبية
+            </button>
+        </div>
+
+        <!-- Menu Grid (Populated via JS) -->
+        <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Items -->
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY / VIBE & FOOD SHOWCASE ==================== -->
+    <section id="gallery" class="py-20 bg-brand-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                    <span class="text-brand-gold font-bold text-sm">الأجواء والتجربة</span>
+                    <h2 class="text-3xl sm:text-4xl font-black mt-1">أجواء داون تاون الساحرة وأطباقنا المميزة</h2>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <span class="bg-white/10 px-3 py-1.5 rounded-full">جلسات خارجية Outdoor Seating</span>
+                    <span class="bg-white/10 px-3 py-1.5 rounded-full">فرن حطب إيطالي</span>
+                    <span class="bg-white/10 px-3 py-1.5 rounded-full">مناسب للعائلات والأصدقاء</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="group relative rounded-3xl overflow-hidden h-72 lg:col-span-2">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1000&q=80"
+                        onerror="this.src='https://placehold.co/800x600/1E1B18/E5A93C?text=Neapolitan+Pizza'"
+                        alt="بيتزا نابولي"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+                        <span class="text-brand-gold text-xs font-bold">بيتزا نابولي الأصلية</span>
+                        <h3 class="text-xl font-bold">عجينة هشة بأطراف مقرمشة مشوية على الحطب</h3>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-3xl overflow-hidden h-72">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80"
+                        onerror="this.src='https://placehold.co/600x600/1E1B18/E5A93C?text=Italian+Pasta'"
+                        alt="باستا إيطالية"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+                        <span class="text-brand-gold text-xs font-bold">باستا ولازانيا</span>
+                        <h3 class="text-lg font-bold">صوصات إيطالية غنية</h3>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-3xl overflow-hidden h-72">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+                        onerror="this.src='https://placehold.co/600x600/1E1B18/E5A93C?text=Downtown+Vibe'"
+                        alt="أجواء المطعم"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+                        <span class="text-brand-gold text-xs font-bold">Vibe & Atmosphere</span>
+                        <h3 class="text-lg font-bold">جلسات راقية في داون تاون</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== REVIEWS & POPULAR TIMES SECTION ==================== -->
+    <section id="reviews" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+            <!-- Left Column: Rating Summary & Popular Times -->
+            <div class="lg:col-span-5 space-y-6">
+                <!-- Google Rating Card -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-black text-stone-900">تقييمات الزوار</h3>
+                            <p class="text-sm text-stone-500">بناءً على 1,594 تقييم موثق</p>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-4xl font-black text-stone-900">4.3</div>
+                            <div class="text-brand-gold text-sm">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating Bars -->
+                    <div class="space-y-2.5 text-sm">
+                        <div class="flex items-center gap-3">
+                            <span class="w-4 font-bold text-stone-600">5</span>
+                            <div class="flex-1 h-2.5 bg-stone-100 rounded-full overflow-hidden">
+                                <div class="bg-brand-gold h-full rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-4 font-bold text-stone-600">4</span>
+                            <div class="flex-1 h-2.5 bg-stone-100 rounded-full overflow-hidden">
+                                <div class="bg-brand-gold h-full rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-4 font-bold text-stone-600">3</span>
+                            <div class="flex-1 h-2.5 bg-stone-100 rounded-full overflow-hidden">
+                                <div class="bg-brand-gold h-full rounded-full" style="width: 8%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-4 font-bold text-stone-600">2</span>
+                            <div class="flex-1 h-2.5 bg-stone-100 rounded-full overflow-hidden">
+                                <div class="bg-brand-gold h-full rounded-full" style="width: 4%"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-4 font-bold text-stone-600">1</span>
+                            <div class="flex-1 h-2.5 bg-stone-100 rounded-full overflow-hidden">
+                                <div class="bg-brand-gold h-full rounded-full" style="width: 3%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Keywords Tags -->
+                    <div class="mt-6 pt-6 border-t border-stone-100">
+                        <p class="text-xs font-bold text-stone-500 mb-3">أكثر الكلمات ذكراً في التقييمات:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="bg-stone-100 text-stone-700 text-xs font-semibold px-3 py-1.5 rounded-full">italian
+                                pizza (44)</span>
+                            <span
+                                class="bg-stone-100 text-stone-700 text-xs font-semibold px-3 py-1.5 rounded-full">neapolitan
+                                pizza (21)</span>
+                            <span
+                                class="bg-stone-100 text-stone-700 text-xs font-semibold px-3 py-1.5 rounded-full">pesto
+                                pasta (7)</span>
+                            <span
+                                class="bg-stone-100 text-stone-700 text-xs font-semibold px-3 py-1.5 rounded-full">outdoor
+                                seating (5)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Times Widget (From Data) -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-black text-stone-900">أوقات الذروة (Popular Times)</h3>
+                            <p class="text-xs text-rose-600 font-bold flex items-center gap-1.5 mt-1">
+                                <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
+                                مباشر: مزدحم أكثر من المعتاد حالياً
+                            </p>
+                        </div>
+                        <select id="day-selector" onchange="updatePopularChart()"
+                            class="bg-stone-100 text-stone-800 text-xs font-bold px-3 py-2 rounded-xl border-none focus:ring-2 focus:ring-brand-red">
+                            <option value="wed">الأربعاء</option>
+                            <option value="thu">الخميس</option>
+                            <option value="fri">الجمعة</option>
+                            <option value="sat">السبت</option>
+                        </select>
+                    </div>
+
+                    <!-- Bar Chart -->
+                    <div class="h-36 flex items-end justify-between gap-2 pt-6 pb-2 px-2 border-b border-stone-200"
+                        id="popular-bars">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="flex justify-between text-[11px] text-stone-400 font-semibold mt-2 px-1" dir="ltr">
+                        <span>12p</span>
+                        <span>3p</span>
+                        <span>6p</span>
+                        <span>9p</span>
+                        <span>11p</span>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-4 bg-amber-50 text-amber-800 p-3 rounded-xl">
+                        <i class="fa-solid fa-lightbulb ml-1"></i>
+                        نصيحة: يُنصح بحجز طاولتك مسبقاً خلال ساعات المساء (7م - 11م) لتجنب الانتظار.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Customer Reviews Feed & Add Review -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <h3 class="text-2xl font-black text-stone-900">تجارب حقيقية من زوارنا</h3>
+                    <button onclick="openReviewModal()"
+                        class="bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold px-5 py-2.5 rounded-full transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-pen"></i>
+                        <span>أضف تقييمك</span>
+                    </button>
+                </div>
+
+                <!-- Highlighted Visitor Update -->
+                <div
+                    class="bg-gradient-to-l from-amber-50 to-orange-50 border border-amber-200/80 rounded-2xl p-4 flex items-center gap-4">
+                    <div
+                        class="w-10 h-10 rounded-full bg-brand-gold text-white flex items-center justify-center shrink-0 font-bold">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-amber-800">تحديث مميز من الزوار:</span>
+                        <p class="text-sm font-bold text-stone-900" dir="ltr">"Pizza shrimp gamda awe" 🍕🦐</p>
+                    </div>
+                </div>
+
+                <!-- Reviews Container -->
+                <div id="reviews-list" class="space-y-4">
+                    <!-- Review 1 -->
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-200">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-11 h-11 rounded-full bg-brand-red/10 text-brand-red font-bold flex items-center justify-center">
+                                    AP
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-stone-900">Academy Producciones</h4>
+                                    <p class="text-xs text-stone-500">مرشد محلي • 149 تقييم • منذ شهرين</p>
+                                </div>
+                            </div>
+                            <div class="text-brand-gold text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-stone-700 text-sm leading-relaxed" dir="ltr">
+                            "Best pizza that I tried in El Cairo for 2 weeks of my stay. I came back for more and ask
+                            for pasta (mixed white and marinara sauce with chicken) was very amazing. One of the best
+                            pasta flavor that I had tried in my travels. 300% recommended."
+                        </p>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-200">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-11 h-11 rounded-full bg-emerald-500/10 text-emerald-700 font-bold flex items-center justify-center">
+                                    UY
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-stone-900">Usama Youssef</h4>
+                                    <p class="text-xs text-stone-500">مرشد محلي • 24 تقييم • منذ 4 أشهر</p>
+                                </div>
+                            </div>
+                            <div class="text-brand-gold text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-stone-700 text-sm leading-relaxed" dir="ltr">
+                            "Great Italian food with a lovely atmosphere and excellent service. The seafood pizza was
+                            especially delicious and full of flavor. Definitely worth a visit! ⭐️🍕🦐"
+                        </p>
+                    </div>
+
+                    <!-- Review 3 (Transparency & Quality Commitment) -->
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-200">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-11 h-11 rounded-full bg-stone-200 text-stone-700 font-bold flex items-center justify-center">
+                                    OS
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-stone-900">Omar Shawky</h4>
+                                    <p class="text-xs text-stone-500">مرشد محلي • منذ 4 أسابيع</p>
+                                </div>
+                            </div>
+                            <div class="text-stone-400 text-xs">
+                                <i class="fa-solid fa-star text-brand-gold"></i><i
+                                    class="fa-solid fa-star text-brand-gold"></i><i class="fa-solid fa-star"></i><i
+                                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-3" dir="ltr">
+                            "This was my favorite place, but had notes on the hot sauce and soft drinks pricing."
+                        </p>
+                        <!-- Management Response -->
+                        <div class="bg-stone-50 border-r-4 border-brand-red p-3 rounded-l-xl text-xs text-stone-700">
+                            <strong class="text-brand-red block mb-1">رد إدارة 900 Degrees:</strong>
+                            نشكرك أستاذ عمر على صراحتك الدائمة وحبك للمكان. تم أخذ ملاحظاتك بعين الاعتبار فوراً ومراجعة
+                            جودة الصوصات وتجربة الضيوف لضمان عودتك دائماً راضياً 100%.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== LOCATION, HOURS & COMPETITORS COMPARISON ==================== -->
+    <section id="location" class="py-20 bg-stone-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Contact & Hours Info -->
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-brand-gold font-bold text-sm">زورونا في التجمع الخامس</span>
+                        <h2 class="text-3xl sm:text-4xl font-black mt-1">الموقع وساعات العمل</h2>
+                        <p class="text-stone-400 mt-2">نرحب بكم يومياً في قلب داون تاون مول القطامية للاستمتاع بأشهى
+                            المأكولات الإيطالية.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <div
+                                class="w-11 h-11 rounded-xl bg-brand-red/20 text-brand-red flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">العنوان التفصيلي</h4>
+                                <p class="text-stone-300 text-sm mt-1">داون تاون مول (Downtown Katameya)، القاهرة
+                                    الجديدة 1، محافظة القاهرة</p>
+                                <p class="text-brand-gold text-xs font-mono mt-1" dir="ltr">Plus Code: 2C86+WV New Cairo
+                                    1</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <div
+                                class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-white">ساعات العمل اليومية</h4>
+                                    <span
+                                        class="text-xs bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-bold">مفتوح
+                                        الآن</span>
+                                </div>
+                                <p class="text-stone-300 text-sm mt-1">يومياً من الساعة 12:00 ظهراً حتى 12:00 منتصف
+                                    الليل</p>
+                                <p class="text-stone-400 text-xs mt-1">متوسط التكلفة للفرد: E£ 400 – 600</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <div
+                                class="w-11 h-11 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">للحجز والطلبات المباشرة</h4>
+                                <a href="tel:01066666911"
+                                    class="text-xl font-black text-brand-gold hover:underline block mt-1" dir="ltr">010
+                                    66666911</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Map Visual Card -->
+                <div class="bg-brand-charcoal rounded-3xl p-4 border border-white/10 shadow-2xl">
+                    <div
+                        class="relative rounded-2xl overflow-hidden h-80 sm:h-96 bg-stone-800 flex items-center justify-center">
+                        <!-- Stylized Map Embed -->
+                        <iframe title="موقع 900 Degrees في داون تاون مول"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=31.4080%2C30.0150%2C31.4160%2C30.0210&amp;layer=mapnik&amp;marker=30.0180%2C31.4120"
+                            class="w-full h-full border-0 filter invert contrast-90 opacity-85" loading="lazy">
+                        </iframe>
+
+                        <!-- Floating Map Pin Card -->
+                        <div
+                            class="absolute bottom-4 right-4 left-4 bg-brand-dark/95 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                                <p class="font-bold text-white text-sm">900 Degrees | Downtown Mall</p>
+                                <p class="text-xs text-stone-400">بوابة داون تاون الرئيسية - منطقة المطاعم</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=900+degrees+Downtown+Mall+Cairo"
+                                target="_blank" rel="noopener noreferrer"
+                                class="bg-brand-red hover:bg-brand-darkRed text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>افتح في خرائط جوجل</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-brand-dark text-stone-400 py-12 border-t border-white/10">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center text-white font-serif font-bold">
+                    900°
+                </div>
+                <div>
+                    <span class="text-white font-bold block">900 Degrees Pizzeria</span>
+                    <span class="text-xs">Downtown Katameya, New Cairo</span>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 text-sm">
+                <a href="#overview" class="hover:text-white transition-colors">نظرة عامة</a>
+                <a href="#menu" class="hover:text-white transition-colors">قائمة الطعام</a>
+                <a href="#reviews" class="hover:text-white transition-colors">التقييمات</a>
+                <button onclick="openReservationModal()" class="hover:text-white transition-colors">حجز طاولة</button>
+            </div>
+
+            <div class="text-xs text-stone-500">
+                © 2026 900 Degrees Downtown Mall. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SLIDE-OVER CART / ONLINE ORDER DRAWER ==================== -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute left-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between">
+            <!-- Cart Header -->
+            <div class="p-6 border-b border-stone-200 flex items-center justify-between bg-brand-dark text-white">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-bag-shopping text-brand-gold text-xl"></i>
+                    <div>
+                        <h3 class="font-bold text-lg">سلة طلباتك</h3>
+                        <p class="text-xs text-stone-400">900 Degrees - داون تاون مول</p>
+                    </div>
+                </div>
+                <button onclick="toggleCart()"
+                    class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Order Type Selector -->
+            <div class="p-4 bg-stone-50 border-b border-stone-200">
+                <div class="grid grid-cols-2 gap-2 bg-stone-200/70 p-1 rounded-xl text-xs font-bold">
+                    <button id="order-delivery-btn" onclick="setOrderType('delivery')"
+                        class="bg-white text-stone-900 py-2 rounded-lg shadow-sm transition-all">
+                        🛵 توصيل (No-contact)
+                    </button>
+                    <button id="order-takeaway-btn" onclick="setOrderType('takeaway')"
+                        class="text-stone-600 py-2 rounded-lg transition-all">
+                        🛍️ استلام من الفرع
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Cart Footer / Checkout -->
+            <div class="p-6 border-t border-stone-200 bg-stone-50 space-y-4">
+                <div class="space-y-1.5 text-sm">
+                    <div class="flex justify-between text-stone-600">
+                        <span>المجموع الفرعي</span>
+                        <span id="cart-subtotal" class="font-bold">0 E£</span>
+                    </div>
+                    <div class="flex justify-between text-stone-600">
+                        <span>رسوم التوصيل / الخدمة</span>
+                        <span id="cart-fee" class="font-bold">35 E£</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-black text-stone-900 pt-2 border-t border-stone-200">
+                        <span>الإجمالي</span>
+                        <span id="cart-total" class="text-brand-red">0 E£</span>
+                    </div>
+                </div>
+
+                <button onclick="checkoutOrder()"
+                    class="w-full bg-brand-red hover:bg-brand-darkRed text-white font-bold py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2">
+                    <span>تأكيد الطلب الآن</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TABLE RESERVATION MODAL ==================== -->
+    <div id="reservation-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeReservationModal()"></div>
+        <div class="relative bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl z-10">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <span class="text-brand-red text-xs font-bold">Dine-in Experience</span>
+                    <h3 class="text-2xl font-black text-stone-900">احجز طاولتك في 900 Degrees</h3>
+                </div>
+                <button onclick="closeReservationModal()"
+                    class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form onsubmit="submitReservation(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 mb-1">الاسم بالكامل</label>
+                        <input type="text" required placeholder="مثال: أحمد محمود"
+                            class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:border-brand-red">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 mb-1">رقم الهاتف</label>
+                        <input type="tel" required placeholder="010XXXXXXXX"
+                            class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:border-brand-red">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 mb-1">عدد الأفراد</label>
+                        <select
+                            class="w-full px-3 py-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:border-brand-red">
+                            <option>2 أفراد</option>
+                            <option>3 أفراد</option>
+                            <option>4 أفراد</option>
+                            <option>5 - 8 أفراد</option>
+                            <option>أكثر من 8</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 mb-1">التاريخ</label>
+                        <input type="date" required
+                            class="w-full px-3 py-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:border-brand-red">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 mb-1">الوقت</label>
+                        <select
+                            class="w-full px-3 py-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:border-brand-red">
+                            <option>02:00 م</option>
+                            <option>04:00 م</option>
+                            <option>06:00 م</option>
+                            <option>08:00 م</option>
+                            <option>09:30 م</option>
+                            <option>10:30 م</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">مكان الجلسة المفضل</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label
+                            class="flex items-center gap-2 p-3 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
+                            <input type="radio" name="seating" value="outdoor" checked class="text-brand-red">
+                            <span class="text-xs font-bold">جلسة خارجية (Outdoor)</span>
+                        </label>
+                        <label
+                            class="flex items-center gap-2 p-3 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
+                            <input type="radio" name="seating" value="indoor" class="text-brand-red">
+                            <span class="text-xs font-bold">صالة داخلية (Indoor)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-brand-red hover:bg-brand-darkRed text-white font-bold py-3.5 rounded-2xl shadow-lg transition-all mt-2">
+                    تأكيد الحجز الفوري
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== ADD REVIEW MODAL ==================== -->
+    <div id="review-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeReviewModal()"></div>
+        <div class="relative bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl z-10">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-black text-stone-900">شاركنا تجربتك في 900 Degrees</h3>
+                <button onclick="closeReviewModal()"
+                    class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="submitReview(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">اسمك</label>
+                    <input type="text" id="rev-name" required placeholder="اكتب اسمك"
+                        class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">التقييم</label>
+                    <select id="rev-stars" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm">
+                        <option value="5">⭐⭐⭐⭐⭐ ممتاز (5/5)</option>
+                        <option value="4">⭐⭐⭐⭐ جيد جداً (4/5)</option>
+                        <option value="3">⭐⭐⭐ جيد (3/5)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">رأيك في الأكل والخدمة</label>
+                    <textarea id="rev-text" rows="3" required placeholder="ما هو طبقك المفضل؟"
+                        class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-stone-900 hover:bg-stone-800 text-white font-bold py-3 rounded-xl">
+                    نشر التقييم
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== CUSTOM TOAST NOTIFICATION ==================== -->
+    <div id="toast"
+        class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div
+            class="bg-stone-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-white/10 flex items-center gap-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+            <span id="toast-msg" class="text-sm font-bold">تمت العملية بنجاح</span>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // Menu Data based directly on 900 Degrees Google Maps highlights, reviews, and photos
+        const menuItems = [
+            {
+                id: 1,
+                name: "بيتزا سي فود وجمبري (Seafood & Shrimp Pizza)",
+                enName: "Neapolitan Seafood Pizza",
+                price: 345,
+                category: ["pizza", "popular"],
+                badge: "الأكثر مدحاً من الزوار 🦐",
+                desc: "عجينة نابولي مشوية على الحطب، صوص طماطم سان مارزانو، جمبري طازج، كاليماري، وموتزاريلا إيطالية.",
+                img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                name: "لازانيا اللحم بالراجو (Ragu Beef Lasagna)",
+                enName: "Ragu Beef Lasagna",
+                price: 295,
+                category: ["pasta", "popular"],
+                badge: "Popular ⭐",
+                desc: "طبقات الباستا الطازجة مع صوص اللحم البقري المطبوخ ببطء، صوص البشاميل الكريمي، وجبنة البارميزان المخبوزة.",
+                img: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                name: "باستا الدجاج بالبيستو (Chicken Pesto Pasta)",
+                enName: "Chicken Pesto Pasta",
+                price: 275,
+                category: ["pasta", "popular"],
+                badge: "Popular 🌿",
+                desc: "باستا مع صدور الدجاج المشوية، صوص الريحان الإيطالي الطازج (البيستو)، الصنوبر المحمص، وجبنة البارميزان.",
+                img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                name: "سباغيتي ميكس صوص بالدجاج (Mixed Sauce Chicken Pasta)",
+                enName: "Pink Sauce Chicken Spaghetti",
+                price: 265,
+                category: ["pasta"],
+                badge: "ترشيح الزوار",
+                desc: "مزيج رائع من صوص المارينارا الإيطالي والكريمة البيضاء مع قطع الدجاج المتبلة والريحان.",
+                img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                name: "بيتزا مارجريتا نابولي (Margherita 900°)",
+                enName: "Classic Neapolitan Margherita",
+                price: 220,
+                category: ["pizza"],
+                badge: "كلاسيك",
+                desc: "صلصة الطماطم الإيطالية الأصلية، جبنة موتزاريلا فريش، أوراق الريحان الطازج، وزيت الزيتون البكر.",
+                img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                name: "ريجاتوني أرابياتا أو ألفريدو (Rigatoni)",
+                enName: "Rigatoni Pasta",
+                price: 245,
+                category: ["pasta"],
+                badge: "",
+                desc: "مكرونة ريجاتوني الإيطالية مطهوة Al Dente مع اختيارك من الصوص الكريمي أو صوص الطماطم الحار.",
+                img: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                name: "أصابع الجبنة المقلية (Fried Cheese)",
+                enName: "Crispy Fried Mozzarella",
+                price: 145,
+                category: ["appetizers"],
+                badge: "مقبلات",
+                desc: "جبنة موتزاريلا مقرمشة من الخارج وذائبة من الداخل، تُقدم مع صوص المارينارا الدافئ.",
+                img: "https://images.unsplash.com/photo-1531749668029-2db88e4276c7?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                name: "أجنحة دجاج متبلة (Chicken Wings)",
+                enName: "Oven Roasted Chicken Wings",
+                price: 175,
+                category: ["appetizers"],
+                badge: "",
+                desc: "أجنحة دجاج مشوية ومقرمشة بتتبيلة الأعشاب الإيطالية والصوص الخاص.",
+                img: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                name: "بروشيتا الطماطم والريحان (Bruschetta & Fries)",
+                enName: "Italian Bruschetta",
+                price: 130,
+                category: ["appetizers"],
+                badge: "",
+                desc: "خبز إيطالي محمص مغطى بمكعبات الطماطم الطازجة، الثوم، الريحان، وزيت الزيتون مع بطاطس مقلية.",
+                img: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        // State
+        let cart = [];
+        let orderType = 'delivery';
+
+        // Initialize Page
+        window.onload = function () {
+            renderMenu('all');
+            renderCart();
+            updatePopularChart();
+        };
+
+        // Render Menu Items
+        function renderMenu(filter) {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all'
+                ? menuItems
+                : menuItems.filter(item => item.category.includes(filter));
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-stone-200/80 transition-all duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-52 overflow-hidden bg-stone-100">
+                            <img src="${item.img}" 
+                                 onerror="this.src='https://placehold.co/600x400/1E1B18/E5A93C?text=900+Degrees'"
+                                 alt="${item.name}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            ${item.badge ? `<span class="absolute top-3 right-3 bg-brand-dark/90 backdrop-blur-md text-brand-gold text-xs font-bold px-3 py-1 rounded-full">${item.badge}</span>` : ''}
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-serif text-stone-400 block mb-1" dir="ltr">${item.enName}</span>
+                            <h3 class="text-lg font-black text-stone-900 leading-snug">${item.name}</h3>
+                            <p class="text-stone-600 text-xs sm:text-sm mt-2 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-stone-100">
+                        <div>
+                            <span class="text-xs text-stone-400 block">السعر</span>
+                            <span class="text-xl font-black text-brand-red">${item.price} <small class="text-xs font-bold">E£</small></span>
+                        </div>
+                        <button onclick="addToCart(${item.id})" class="bg-stone-900 hover:bg-brand-red text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>أضف للسلة</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Menu Tabs
+        function filterMenu(category) {
+            document.querySelectorAll('.menu-tab').forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.className = "menu-tab active bg-brand-red text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-all";
+                } else {
+                    btn.className = "menu-tab bg-white text-stone-700 hover:bg-stone-100 px-5 py-2.5 rounded-full text-sm font-bold border border-stone-200 transition-all";
+                }
+            });
+            renderMenu(category);
+        }
+
+        // Cart Functions
+        function addToCart(id) {
+            const product = menuItems.find(i => i.id === id);
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({...product, qty: 1});
+            }
+            renderCart();
+            showToast(`تمت إضافة "${product.name.split('(')[0]}" إلى السلة`);
+        }
+
+        function updateQty(id, delta) {
+            const idx = cart.findIndex(i => i.id === id);
+            if (idx > -1) {
+                cart[idx].qty += delta;
+                if (cart[idx].qty <= 0) {
+                    cart.splice(idx, 1);
+                }
+            }
+            renderCart();
+        }
+
+        function setOrderType(type) {
+            orderType = type;
+            const delBtn = document.getElementById('order-delivery-btn');
+            const takBtn = document.getElementById('order-takeaway-btn');
+            if (type === 'delivery') {
+                delBtn.className = "bg-white text-stone-900 py-2 rounded-lg shadow-sm transition-all";
+                takBtn.className = "text-stone-600 py-2 rounded-lg transition-all";
+            } else {
+                takBtn.className = "bg-white text-stone-900 py-2 rounded-lg shadow-sm transition-all";
+                delBtn.className = "text-stone-600 py-2 rounded-lg transition-all";
+            }
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const badge = document.getElementById('cart-badge');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const feeEl = document.getElementById('cart-fee');
+            const totalEl = document.getElementById('cart-total');
+
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.textContent = totalQty;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-stone-400">
+                        <i class="fa-solid fa-pizza-slice text-4xl mb-3 opacity-30"></i>
+                        <p class="font-bold text-stone-600">سلة الطلبات فارغة حالياً</p>
+                        <p class="text-xs mt-1">اختر أطباقك المفضلة من المنيو لبدء الطلب</p>
+                    </div>
+                `;
+                subtotalEl.textContent = "0 E£";
+                feeEl.textContent = "0 E£";
+                totalEl.textContent = "0 E£";
+                return;
+            }
+
+            let subtotal = 0;
+            container.innerHTML = '';
+
+            cart.forEach(item => {
+                subtotal += item.price * item.qty;
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between gap-3 bg-stone-50 p-3 rounded-2xl border border-stone-200/70";
+                row.innerHTML = `
+                    <div class="flex-1">
+                        <h4 class="font-bold text-stone-900 text-sm">${item.name.split('(')[0]}</h4>
+                        <span class="text-xs font-bold text-brand-red">${item.price * item.qty} E£</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white border border-stone-200 rounded-xl px-2 py-1">
+                        <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 text-stone-600 hover:text-brand-red font-bold">-</button>
+                        <span class="text-xs font-black w-4 text-center">${item.qty}</span>
+                        <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 text-stone-600 hover:text-emerald-600 font-bold">+</button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            const fee = orderType === 'delivery' ? 35 : 0;
+            subtotalEl.textContent = `${subtotal} E£`;
+            feeEl.textContent = fee === 0 ? "مجاني (استلام)" : `${fee} E£`;
+            totalEl.textContent = `${subtotal + fee} E£`;
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function checkoutOrder() {
+            if (cart.length === 0) {
+                showToast("يرجى إضافة أصناف للسلة أولاً", "error");
+                return;
+            }
+            cart = [];
+            renderCart();
+            toggleCart();
+            showToast("تم إرسال طلبك لفرع داون تاون مول بنجاح! جاري التحضير 🔥");
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Reservation Modal
+        function openReservationModal() {
+            const modal = document.getElementById('reservation-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeReservationModal() {
+            const modal = document.getElementById('reservation-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function submitReservation(e) {
+            e.preventDefault();
+            closeReservationModal();
+            showToast("تم تأكيد حجز طاولتك في 900 Degrees! في انتظاركم.");
+        }
+
+        // Review Modal
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function submitReview(e) {
+            e.preventDefault();
+            const name = document.getElementById('rev-name').value;
+            const text = document.getElementById('rev-text').value;
+            const starsCount = parseInt(document.getElementById('rev-stars').value);
+
+            let starsHtml = '';
+            for (let i = 0; i < starsCount; i++) {
+                starsHtml += '<i class="fa-solid fa-star"></i>';
+            }
+
+            const list = document.getElementById('reviews-list');
+            const newCard = document.createElement('div');
+            newCard.className = "bg-white rounded-3xl p-6 shadow-sm border-2 border-brand-gold/50";
+            newCard.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full bg-brand-gold/20 text-brand-dark font-bold flex items-center justify-center">
+                            ${name.substring(0, 2)}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-900">${name}</h4>
+                            <p class="text-xs text-emerald-600 font-bold">تقييم جديد • الآن</p>
+                        </div>
+                    </div>
+                    <div class="text-brand-gold text-xs">${starsHtml}</div>
+                </div>
+                <p class="text-stone-700 text-sm leading-relaxed">${text}</p>
+            `;
+            list.prepend(newCard);
+            closeReviewModal();
+            e.target.reset();
+            showToast("شكراً لك! تم إضافة تقييمك بنجاح.");
+        }
+
+        // Popular Times Chart Data
+        const popularData = {
+            wed: [25, 45, 55, 40, 65, 85, 95, 70],
+            thu: [30, 50, 60, 55, 80, 95, 100, 85],
+            fri: [40, 75, 80, 70, 90, 100, 100, 90],
+            sat: [35, 65, 75, 60, 85, 95, 90, 75]
+        };
+
+        function updatePopularChart() {
+            const day = document.getElementById('day-selector').value;
+            const values = popularData[day];
+            const container = document.getElementById('popular-bars');
+            container.innerHTML = '';
+
+            values.forEach((val, index) => {
+                const isLive = (day === 'wed' && index === 6);
+                const bar = document.createElement('div');
+                bar.className = `flex-1 rounded-t-lg transition-all duration-500 relative group ${isLive ? 'bg-rose-500' : 'bg-blue-500/80 hover:bg-brand-red'}`;
+                bar.style.height = `${val}%`;
+                container.appendChild(bar);
+            });
+        }
+
+        // Utility: Copy Plus Code (using execCommand per iframe compatibility)
+        function copyPlusCode() {
+            const tempInput = document.createElement("input");
+            tempInput.value = "2C86+WV New Cairo 1 - 900 Degrees Downtown Mall";
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showToast("تم نسخ كود الموقع (2C86+WV) للحافظة!");
+        }
+
+        // Utility: Share Restaurant
+        function shareRestaurant() {
+            const tempInput = document.createElement("input");
+            tempInput.value = "900 Degrees | Downtown Mall Katameya - Tel: 01066666911";
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showToast("تم نسخ بيانات وموقع المطعم للمشاركة!");
+        }
+
+        // Toast Helper
+        function showToast(message, type = "success") {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.textContent = message;
+            iconEl.className = type === "error"
+                ? "fa-solid fa-circle-exclamation text-rose-400 text-lg"
+                : "fa-solid fa-circle-check text-emerald-400 text-lg";
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+
+</html>
